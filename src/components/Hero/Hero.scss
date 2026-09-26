@@ -1,0 +1,117 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 43rem;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: calc(v.$header-height + v.$space-12) v.$gutter v.$space-20;
+  background:
+    linear-gradient(180deg, rgba(v.$ink-950, 0.08) 20%, rgba(v.$ink-950, 0.88) 92%),
+    linear-gradient(90deg, rgba(v.$ink-950, 0.83) 0%, rgba(v.$ink-950, 0.24) 72%),
+    url('../../assets/images/hero-worship.jpg') 58% center / cover no-repeat;
+  color: v.$color-on-dark;
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 37rem);
+    animation: hero-reveal 800ms v.$ease-standard both;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    margin-bottom: v.$space-5;
+    color: rgba(v.$white, 0.85);
+    font-size: 0.62rem;
+    font-weight: v.$font-weight-semibold;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+
+    span { width: 2px; height: 2px; border-radius: 50%; background: currentColor; }
+  }
+
+  h1 {
+    max-width: 11ch;
+    font-size: v.$text-display;
+    font-weight: v.$font-weight-semibold;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+
+    em { color: v.$color-brand; font-style: normal; }
+  }
+
+  &__summary {
+    max-width: 35rem;
+    margin-top: v.$space-6;
+    color: v.$color-on-dark-muted;
+    font-size: v.$text-base;
+    line-height: 1.6;
+  }
+
+  &__actions { display: flex; flex-wrap: wrap; gap: v.$space-3; margin-top: v.$space-8; }
+
+  &__note {
+    position: absolute;
+    right: clamp(1.25rem, 5vw, 5rem);
+    bottom: 5.4rem;
+    display: none;
+    color: v.$white;
+    font-family: v.$font-script;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    text-align: center;
+    transform: rotate(-7deg);
+
+    span { display: block; width: 3rem; height: 2px; margin: v.$space-4 auto 0; background: v.$color-brand; transform: rotate(-8deg); }
+  }
+}
+
+.button {
+  @include m.button-reset;
+  @include m.focus-ring;
+  @include m.interactive-lift;
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  padding: 0.85rem 1.3rem;
+  border-radius: v.$radius-sm;
+  font-size: v.$text-sm;
+  font-weight: v.$font-weight-bold;
+
+  svg { width: 1.15rem; height: 1.15rem; }
+  &--primary { background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+  &--primary:hover { background: v.$color-brand-hover; }
+  &--outline { border: 1px solid rgba(v.$white, 0.6); background: rgba(v.$ink-950, 0.25); color: v.$white; backdrop-filter: blur(8px); }
+  &--outline:hover { background: rgba(v.$white, 0.12); }
+}
+
+@keyframes hero-reveal {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: v.$bp-medium) {
+  .hero {
+    min-height: 41rem;
+    align-items: center;
+    padding-top: calc(v.$header-height + v.$space-10);
+    padding-bottom: v.$space-12;
+    background:
+      linear-gradient(90deg, rgba(v.$ink-950, 0.92) 0%, rgba(v.$ink-950, 0.7) 35%, rgba(v.$ink-950, 0.12) 76%),
+      linear-gradient(0deg, rgba(v.$ink-950, 0.35), transparent 40%),
+      url('../../assets/images/hero-worship.jpg') center 46% / cover no-repeat;
+
+    &__note { display: block; }
+  }
+}
+
+@media (min-width: v.$bp-large) {
+  .hero { padding-inline: max(v.$gutter, calc((100% - #{v.$content-max}) / 2 + v.$gutter)); }
+}

@@ -1,0 +1,60 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.cta-wrap { @include m.container; padding-bottom: v.$space-8; }
+
+.cta {
+  position: relative;
+  display: grid;
+  min-height: 25rem;
+  align-items: end;
+  gap: v.$space-8;
+  overflow: hidden;
+  padding: v.$space-8 v.$space-6;
+  border-radius: v.$radius-lg;
+  background: linear-gradient(180deg, rgba(v.$ink-950, 0.12), rgba(v.$ink-950, 0.9) 80%), url('../../assets/images/cross-sunset.jpg') 36% center / cover no-repeat;
+  color: v.$white;
+
+  &__content, &__quote { position: relative; z-index: 1; }
+  h2 { font-size: v.$text-xl; letter-spacing: -0.035em; line-height: 1.15; }
+  &__content p { max-width: 28rem; margin-top: v.$space-2; color: v.$color-on-dark-muted; font-size: v.$text-sm; }
+
+  &__button {
+    @include m.focus-ring;
+    @include m.interactive-lift;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: v.$space-6;
+    padding-inline: v.$space-6;
+    border-radius: v.$radius-sm;
+    background: v.$color-brand;
+    color: v.$ink-950;
+    box-shadow: v.$shadow-button;
+    font-size: v.$text-sm;
+    font-weight: v.$font-weight-bold;
+  }
+
+  &__quote {
+    max-width: 21rem;
+    margin: 0;
+    font-family: v.$font-script;
+    font-size: 1.3rem;
+    line-height: 1.2;
+
+    cite { display: block; margin-top: v.$space-5; font-family: v.$font-sans; font-size: 0.65rem; font-style: normal; font-weight: v.$font-weight-semibold; letter-spacing: 0.22em; text-transform: uppercase; }
+  }
+}
+
+@media (min-width: v.$bp-medium) {
+  .cta-wrap { padding-bottom: v.$space-12; }
+  .cta {
+    grid-template-columns: 1fr 0.75fr;
+    min-height: 15.5rem;
+    align-items: center;
+    padding: v.$space-8 v.$space-10;
+    background: linear-gradient(90deg, rgba(v.$ink-950, 0.9), rgba(v.$ink-950, 0.13) 53%, rgba(v.$ink-950, 0.78)), url('../../assets/images/cross-sunset.jpg') center / cover no-repeat;
+    &__quote { justify-self: end; }
+  }
+}

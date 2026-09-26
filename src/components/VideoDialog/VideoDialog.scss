@@ -1,0 +1,48 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.video-dialog {
+  width: min(calc(100% - 2rem), 52rem);
+  padding: 0;
+  overflow: visible;
+  border: 1px solid rgba(v.$white, 0.16);
+  border-radius: v.$radius-lg;
+  background: v.$ink-950;
+  color: v.$white;
+  box-shadow: 0 2rem 8rem rgba(v.$ink-950, 0.7);
+
+  &::backdrop { background: rgba(v.$ink-950, 0.82); backdrop-filter: blur(8px); }
+
+  &__close {
+    @include m.button-reset;
+    @include m.focus-ring;
+    position: absolute;
+    z-index: 2;
+    top: -0.75rem;
+    right: -0.75rem;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid rgba(v.$white, 0.16);
+    border-radius: 50%;
+    background: v.$ink-900;
+  }
+
+  &__visual {
+    position: relative;
+    display: grid;
+    min-height: 28rem;
+    place-items: center;
+    overflow: hidden;
+    border-radius: inherit;
+    text-align: center;
+
+    &::after { position: absolute; inset: 0; background: rgba(v.$ink-950, 0.58); content: ''; }
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    div { position: relative; z-index: 1; padding: v.$space-6; }
+    span { color: v.$color-brand; font-size: v.$text-xs; font-weight: v.$font-weight-bold; letter-spacing: 0.2em; text-transform: uppercase; }
+    h2 { margin-top: v.$space-3; font-size: v.$text-2xl; line-height: 1.1; }
+    p { margin-top: v.$space-3; color: v.$color-on-dark-muted; }
+  }
+}

@@ -1,0 +1,111 @@
+// FaithLink foundation ------------------------------------------------------
+// Component styles consume these semantic tokens. Avoid hard-coded values in
+// components so future screens can evolve without fragmenting the brand.
+
+// Primitive color palette
+$ink-950: #0a0f12;
+$ink-900: #10171b;
+$ink-800: #1b252b;
+$slate-700: #44515b;
+$slate-600: #61707c;
+$slate-400: #98a2a9;
+$stone-100: #f3f2ef;
+$stone-50: #faf9f7;
+$white: #ffffff;
+$amber-500: #f8ad35;
+$amber-400: #ffbc4a;
+$amber-100: #fff0cf;
+$green-500: #42a488;
+$indigo-500: #4a5bf1;
+$violet-500: #7a45c7;
+$purple-500: #7041c9;
+
+// Semantic color roles
+$color-text: $ink-900;
+$color-text-muted: $slate-600;
+$color-on-dark: $white;
+$color-on-dark-muted: rgba($white, 0.78);
+$color-brand: $amber-500;
+$color-brand-hover: $amber-400;
+$color-page: #e7e9e8;
+$color-surface: $white;
+$color-surface-soft: $stone-50;
+$color-border: rgba($ink-900, 0.1);
+$color-focus: #ffd47c;
+
+// Typography
+$font-sans: 'Inter Variable', Inter, 'Avenir Next', system-ui, -apple-system, sans-serif;
+$font-script: 'Caveat', 'Segoe Print', cursive;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Mobile-first fluid type scale
+$text-xs: clamp(0.7rem, 0.68rem + 0.1vw, 0.76rem);
+$text-sm: clamp(0.82rem, 0.79rem + 0.12vw, 0.9rem);
+$text-base: clamp(0.94rem, 0.9rem + 0.16vw, 1.04rem);
+$text-lg: clamp(1.02rem, 0.96rem + 0.25vw, 1.18rem);
+$text-xl: clamp(1.3rem, 1.16rem + 0.6vw, 1.7rem);
+$text-2xl: clamp(1.65rem, 1.35rem + 1.25vw, 2.55rem);
+$text-display: clamp(2.35rem, 1.75rem + 2.5vw, 4.45rem);
+
+// Spacing: 4px base rhythm
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+$space-20: 5rem;
+
+// Layout
+$content-max: 72rem;
+$gutter: clamp(1rem, 4vw, 3rem);
+$header-height: 5rem;
+
+// Shape and depth
+$radius-sm: 0.625rem;
+$radius-md: 0.875rem;
+$radius-lg: 1.25rem;
+$radius-xl: 1.75rem;
+$radius-pill: 999px;
+$shadow-soft: 0 1.25rem 4rem rgba($ink-950, 0.1);
+$shadow-card: 0 0.65rem 2rem rgba($ink-950, 0.06);
+$shadow-button: 0 0.6rem 1.5rem rgba($amber-500, 0.25);
+
+// Motion
+$ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+$duration-fast: 160ms;
+$duration-base: 280ms;
+$duration-slow: 600ms;
+
+// Breakpoints
+$bp-small: 30rem;
+$bp-medium: 48rem;
+$bp-large: 64rem;
+
+:root {
+  color-scheme: light;
+  --color-ink: #{$color-text};
+  --color-muted: #{$color-text-muted};
+  --color-brand: #{$color-brand};
+  --color-surface: #{$color-surface};
+  --color-surface-soft: #{$color-surface-soft};
+  --color-focus: #{$color-focus};
+  --font-sans: #{$font-sans};
+  --font-script: #{$font-script};
+  --content-max: #{$content-max};
+  --gutter: #{$gutter};
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --shadow-card: #{$shadow-card};
+  --ease-standard: #{$ease-standard};
+  --duration-base: #{$duration-base};
+}

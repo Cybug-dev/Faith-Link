@@ -1,0 +1,147 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.site-header {
+  position: absolute;
+  z-index: 20;
+  inset: 0 0 auto;
+  height: v.$header-height;
+  border-bottom: 1px solid rgba(v.$white, 0.1);
+  background: linear-gradient(180deg, rgba(v.$ink-950, 0.92), rgba(v.$ink-950, 0.62));
+  color: v.$color-on-dark;
+  backdrop-filter: blur(10px);
+
+  &__inner {
+    @include m.container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+}
+
+.brand {
+  @include m.focus-ring;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-2;
+  border-radius: v.$radius-sm;
+  font-size: 1.08rem;
+  font-weight: v.$font-weight-bold;
+  letter-spacing: -0.04em;
+
+  &__mark {
+    width: 1.25rem;
+    height: 1.75rem;
+    filter: brightness(0) invert(1);
+  }
+}
+
+.menu-toggle {
+  @include m.button-reset;
+  @include m.focus-ring;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgba(v.$white, 0.2);
+  border-radius: v.$radius-sm;
+  background: rgba(v.$white, 0.08);
+
+  svg { width: 1.35rem; }
+}
+
+.site-nav {
+  position: absolute;
+  top: calc(100% + v.$space-3);
+  right: v.$gutter;
+  left: v.$gutter;
+  display: grid;
+  gap: v.$space-6;
+  padding: v.$space-6;
+  border: 1px solid rgba(v.$white, 0.12);
+  border-radius: v.$radius-md;
+  background: rgba(v.$ink-950, 0.98);
+  box-shadow: 0 1rem 3rem rgba(v.$ink-950, 0.36);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.75rem);
+  transition: opacity v.$duration-base v.$ease-standard, transform v.$duration-base v.$ease-standard, visibility v.$duration-base;
+
+  &--open { opacity: 1; visibility: visible; transform: translateY(0); }
+  &__links, &__actions { display: grid; gap: v.$space-2; }
+
+  &__link {
+    @include m.focus-ring;
+    padding: v.$space-3;
+    border-radius: v.$radius-sm;
+    color: rgba(v.$white, 0.78);
+    font-size: v.$text-sm;
+    font-weight: v.$font-weight-medium;
+
+    &--active, &:hover { color: v.$white; background: rgba(v.$white, 0.07); }
+  }
+}
+
+.header-button {
+  @include m.focus-ring;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding-inline: v.$space-5;
+  border-radius: v.$radius-sm;
+  font-size: v.$text-sm;
+  font-weight: v.$font-weight-semibold;
+  transition: background-color v.$duration-fast ease;
+
+  &--ghost { border: 1px solid rgba(v.$white, 0.32); background: rgba(v.$white, 0.06); }
+  &--primary { background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+}
+
+@media (min-width: v.$bp-large) {
+  .menu-toggle { display: none; }
+
+  .site-nav {
+    position: static;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(1rem, 3vw, 3rem);
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+
+    &__links, &__actions { display: flex; align-items: center; }
+    &__links { gap: clamp(0.2rem, 1vw, 1rem); }
+    &__actions { gap: v.$space-3; }
+
+    &__link {
+      position: relative;
+      padding: 1.85rem 0.75rem 1.7rem;
+      background: none !important;
+
+      &::after {
+        position: absolute;
+        right: 0.75rem;
+        bottom: 1.15rem;
+        left: 0.75rem;
+        height: 2px;
+        background: v.$color-brand;
+        content: '';
+        opacity: 0;
+        transform: scaleX(0.4);
+        transition: all v.$duration-base v.$ease-standard;
+      }
+
+      &--active::after, &:hover::after { opacity: 1; transform: scaleX(1); }
+    }
+  }
+
+  .header-button { min-height: 2.7rem; }
+}

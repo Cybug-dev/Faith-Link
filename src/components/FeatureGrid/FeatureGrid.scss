@@ -1,0 +1,54 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.features {
+  position: relative;
+  z-index: 4;
+  margin-top: -1.75rem;
+  padding: v.$space-4 v.$gutter v.$space-6;
+  border-radius: v.$radius-xl v.$radius-xl 0 0;
+  background: v.$color-surface;
+
+  &__grid { display: grid; width: min(100%, v.$content-max); margin-inline: auto; gap: v.$space-3; }
+}
+
+.feature-card {
+  @include m.interactive-lift;
+  display: flex;
+  min-height: 6.5rem;
+  align-items: center;
+  gap: v.$space-4;
+  padding: v.$space-4 v.$space-5;
+  border: 1px solid rgba(v.$ink-900, 0.045);
+  border-radius: v.$radius-md;
+  background: linear-gradient(135deg, v.$stone-50, v.$white);
+  box-shadow: v.$shadow-card;
+
+  &__icon {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+
+    svg { width: 1.75rem; height: 1.75rem; }
+    &--green { background: rgba(v.$green-500, 0.12); color: v.$green-500; }
+    &--indigo { background: rgba(v.$indigo-500, 0.11); color: v.$indigo-500; }
+    &--violet { background: rgba(v.$violet-500, 0.11); color: v.$violet-500; }
+    &--purple { background: rgba(v.$purple-500, 0.11); color: v.$purple-500; }
+  }
+
+  h3 { margin-bottom: 0.15rem; font-size: v.$text-base; letter-spacing: -0.03em; }
+  p { color: v.$color-text-muted; font-size: v.$text-sm; line-height: 1.45; }
+}
+
+@media (min-width: v.$bp-small) {
+  .features__grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-card { display: grid; min-height: 10rem; align-content: center; justify-items: center; padding: v.$space-5; text-align: center; }
+}
+
+@media (min-width: v.$bp-large) {
+  .features { padding-block: v.$space-6 v.$space-8; }
+  .features__grid { grid-template-columns: repeat(4, 1fr); gap: v.$space-4; }
+}
