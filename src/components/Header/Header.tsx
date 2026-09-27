@@ -1,18 +1,38 @@
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import brandMark from '../../assets/icons/faithlink-mark.svg';
 import './Header.scss';
 
 const links = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Features', href: '#features' },
-  { label: 'For Churches', href: '#churches' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Features', to: '/#features' },
+  { label: 'For Churches', to: '/#get-started' },
+  { label: 'Contact', to: '/#get-started' },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateHeaderState = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(() => setIsScrolled(window.scrollY > 4));
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', updateHeaderState);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -23,27 +43,35 @@ export function Header() {
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [isMenuOpen]);
 
+  useEffect(() => setIsMenuOpen(false), [pathname]);
+
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${isScrolled ? 'site-header--scrolled' : ''}`}>
       <div className="site-header__inner">
-        <a className="brand" href="#home" aria-label="FaithLink home">
+        <Link className="brand" to="/" aria-label="FaithLink home">
           <img className="brand__mark" src={brandMark} alt="" />
           <span>FaithLink</span>
-        </a>
+        </Link>
 
         <nav aria-label="Primary navigation" id="primary-navigation" className={`site-nav ${isMenuOpen ? 'site-nav--open' : ''}`}>
           <div className="site-nav__links">
-            {links.map((link, index) => (
-              <a className={index === 0 ? 'site-nav__link site-nav__link--active' : 'site-nav__link'} href={link.href} key={link.label} onClick={closeMenu}>
+            {links.map((link) => (
+              <NavLink
+                className={({ isActive }) => `site-nav__link ${isActive && !link.to.includes('#') ? 'site-nav__link--active' : ''}`}
+                end={link.to === '/'}
+                to={link.to}
+                key={link.label}
+                onClick={closeMenu}
+              >
                 {link.label}
-              </a>
+              </NavLink>
             ))}
           </div>
           <div className="site-nav__actions">
-            <a className="header-button header-button--ghost" href="#signin" onClick={closeMenu}>Sign In</a>
-            <a className="header-button header-button--primary" href="#get-started" onClick={closeMenu}>Get Started</a>
+            <Link className="header-button header-button--ghost" to="/#signin" onClick={closeMenu}>Sign In</Link>
+            <Link className="header-button header-button--primary" to="/#get-started" onClick={closeMenu}>Get Started</Link>
           </div>
         </nav>
 

@@ -1,0 +1,217 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.about-page {
+  background: v.$color-surface;
+}
+
+.section-eyebrow {
+  margin-bottom: v.$space-2;
+  color: #a96c26;
+  font-size: v.$text-xs;
+  font-weight: v.$font-weight-bold;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+
+  &--light { color: rgba(v.$white, 0.72); }
+}
+
+.about-hero {
+  position: relative;
+  display: flex;
+  min-height: 29rem;
+  align-items: flex-end;
+  padding: v.$space-16 v.$gutter v.$space-12;
+  background:
+    linear-gradient(180deg, rgba(v.$ink-950, 0.12), rgba(v.$ink-950, 0.82) 90%),
+    url('../../assets/images/about-mission.jpg') 68% center / cover no-repeat;
+  color: v.$white;
+
+  &__content {
+    width: min(100%, 43rem);
+    animation: about-reveal 700ms v.$ease-standard both;
+  }
+
+  h1 {
+    font-size: v.$text-display;
+    font-weight: v.$font-weight-semibold;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+
+    em { color: v.$color-brand; font-style: normal; }
+  }
+
+  &__content > p:last-child {
+    max-width: 39rem;
+    margin-top: v.$space-5;
+    color: v.$color-on-dark-muted;
+    font-size: v.$text-sm;
+    line-height: 1.65;
+  }
+}
+
+.purpose {
+  @include m.container;
+  display: grid;
+  gap: v.$space-10;
+  padding-block: v.$space-12;
+
+  &__media {
+    position: relative;
+    min-height: 23rem;
+
+    img { width: 100%; height: 100%; min-height: 23rem; border-radius: v.$radius-lg; object-fit: cover; }
+
+    p {
+      position: absolute;
+      bottom: v.$space-5;
+      left: v.$space-5;
+      color: v.$white;
+      font-family: v.$font-script;
+      font-size: 1.65rem;
+      font-weight: v.$font-weight-semibold;
+      line-height: 0.98;
+      text-shadow: 0 2px 12px rgba(v.$ink-950, 0.8);
+      transform: rotate(-5deg);
+    }
+  }
+
+  &__content { align-self: center; }
+  h2 { font-size: v.$text-2xl; letter-spacing: -0.045em; line-height: 1.08; }
+  &__intro { max-width: 42rem; margin-top: v.$space-4; color: v.$color-text-muted; font-size: v.$text-sm; line-height: 1.7; }
+
+  &__pillars {
+    display: grid;
+    gap: v.$space-3;
+    margin-top: v.$space-8;
+  }
+}
+
+.purpose-card {
+  padding: v.$space-4;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  background: v.$color-surface-soft;
+
+  h3 { margin-top: v.$space-3; font-size: v.$text-sm; }
+  p { margin-top: v.$space-1; color: v.$color-text-muted; font-size: v.$text-xs; line-height: 1.5; }
+}
+
+.about-icon {
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border-radius: 50%;
+
+  svg { width: 1.35rem; height: 1.35rem; stroke-width: 2.4; }
+  &--green { background: rgba(v.$green-500, 0.12); color: v.$green-500; }
+  &--indigo { background: rgba(v.$indigo-500, 0.11); color: v.$indigo-500; }
+  &--violet { background: rgba(v.$violet-500, 0.11); color: v.$violet-500; }
+  &--blue { background: rgba(#3979dc, 0.11); color: #3979dc; }
+}
+
+.values {
+  padding-block: v.$space-12;
+  background: v.$color-surface-soft;
+
+  &__inner { @include m.container; }
+  h2 { font-size: v.$text-2xl; letter-spacing: -0.045em; }
+
+  &__grid {
+    display: grid;
+    gap: v.$space-3;
+    margin-top: v.$space-6;
+  }
+}
+
+.value-card {
+  @include m.interactive-lift;
+  display: flex;
+  min-height: 6rem;
+  align-items: center;
+  gap: v.$space-4;
+  padding: v.$space-4;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  background: v.$white;
+  box-shadow: v.$shadow-card;
+
+  h3 { font-size: v.$text-sm; }
+  p { color: v.$color-text-muted; font-size: v.$text-xs; }
+}
+
+.vision-wrap {
+  @include m.container;
+  padding-block: v.$space-10;
+}
+
+.vision {
+  display: grid;
+  min-height: 18rem;
+  place-items: center;
+  align-content: center;
+  padding: v.$space-10 v.$space-5;
+  border-radius: v.$radius-lg;
+  background:
+    linear-gradient(rgba(v.$ink-950, 0.62), rgba(v.$ink-950, 0.72)),
+    url('../../assets/images/about-vision.jpg') center / cover no-repeat;
+  color: v.$white;
+  text-align: center;
+
+  > svg { width: 1.7rem; color: v.$color-brand; }
+  h2 { margin-top: v.$space-2; font-size: v.$text-xl; letter-spacing: -0.035em; }
+  p { max-width: 43rem; margin-top: v.$space-2; color: v.$color-on-dark-muted; font-size: v.$text-sm; }
+
+  a {
+    @include m.focus-ring;
+    @include m.interactive-lift;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: v.$space-6;
+    padding-inline: v.$space-8;
+    border-radius: v.$radius-sm;
+    background: v.$color-brand;
+    color: v.$ink-950;
+    box-shadow: v.$shadow-button;
+    font-size: v.$text-sm;
+    font-weight: v.$font-weight-bold;
+  }
+}
+
+@keyframes about-reveal {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: v.$bp-small) {
+  .purpose__pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .value-card { display: grid; min-height: 9rem; align-content: center; justify-items: center; text-align: center; }
+}
+
+@media (min-width: v.$bp-medium) {
+  .about-hero {
+    min-height: 27rem;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(v.$ink-950, 0.94), rgba(v.$ink-950, 0.68) 45%, rgba(v.$ink-950, 0.08) 78%),
+      url('../../assets/images/about-mission.jpg') center / cover no-repeat;
+  }
+
+  .purpose {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding-block: v.$space-16;
+
+    &__media, &__media img { min-height: 30rem; }
+  }
+}
+
+@media (min-width: v.$bp-large) {
+  .about-hero { padding-inline: max(v.$gutter, calc((100% - #{v.$content-max}) / 2 + v.$gutter)); }
+  .values__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}

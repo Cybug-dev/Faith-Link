@@ -4,10 +4,10 @@
 .hero {
   position: relative;
   display: flex;
-  min-height: 43rem;
+  min-height: 38rem;
   align-items: flex-end;
   overflow: hidden;
-  padding: calc(v.$header-height + v.$space-12) v.$gutter v.$space-20;
+  padding: v.$space-12 v.$gutter v.$space-20;
   background:
     linear-gradient(180deg, rgba(v.$ink-950, 0.08) 20%, rgba(v.$ink-950, 0.88) 92%),
     linear-gradient(90deg, rgba(v.$ink-950, 0.83) 0%, rgba(v.$ink-950, 0.24) 72%),
@@ -99,9 +99,9 @@
 
 @media (min-width: v.$bp-medium) {
   .hero {
-    min-height: 41rem;
+    min-height: 36rem;
     align-items: center;
-    padding-top: calc(v.$header-height + v.$space-10);
+    padding-top: v.$space-10;
     padding-bottom: v.$space-12;
     background:
       linear-gradient(90deg, rgba(v.$ink-950, 0.92) 0%, rgba(v.$ink-950, 0.7) 35%, rgba(v.$ink-950, 0.12) 76%),
