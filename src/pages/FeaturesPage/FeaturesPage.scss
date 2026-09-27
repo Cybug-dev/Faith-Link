@@ -1,0 +1,289 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.features-page { background: v.$color-surface; }
+
+.features-eyebrow {
+  margin-bottom: v.$space-2;
+  color: #a96c26;
+  font-size: v.$text-xs;
+  font-weight: v.$font-weight-bold;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  &--light { color: rgba(v.$white, 0.75); }
+}
+
+.features-hero {
+  position: relative;
+  display: flex;
+  min-height: 38rem;
+  align-items: flex-end;
+  padding: v.$space-12 v.$gutter v.$space-16;
+  background:
+    linear-gradient(180deg, rgba(v.$ink-950, 0.04), rgba(v.$ink-950, 0.88) 88%),
+    url('../../assets/images/features-hero.jpg') 66% center / cover no-repeat;
+  color: v.$white;
+
+  &__content {
+    position: relative;
+    width: min(100%, 43rem);
+    animation: features-reveal 700ms v.$ease-standard both;
+  }
+
+  h1 {
+    font-size: v.$text-display;
+    font-weight: v.$font-weight-semibold;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+
+    em { color: v.$color-brand; font-style: normal; }
+  }
+
+  &__summary {
+    max-width: 38rem;
+    margin-top: v.$space-5;
+    color: v.$color-on-dark-muted;
+    font-size: v.$text-sm;
+    line-height: 1.65;
+  }
+
+  &__actions { display: flex; flex-wrap: wrap; gap: v.$space-3; margin-top: v.$space-6; }
+
+  &__scribble {
+    display: none;
+    position: absolute;
+    right: -30rem;
+    bottom: -1rem;
+    font-family: v.$font-script;
+    font-size: 1.45rem;
+    line-height: 1;
+    text-align: center;
+    transform: rotate(-6deg);
+
+    span { display: block; width: 2.6rem; height: 2px; margin: v.$space-3 auto 0; background: v.$color-brand; transform: rotate(-8deg); }
+  }
+}
+
+.features-button {
+  @include m.button-reset;
+  @include m.focus-ring;
+  @include m.interactive-lift;
+  display: inline-flex;
+  min-height: 3.15rem;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  padding-inline: v.$space-6;
+  border-radius: v.$radius-sm;
+  font-size: v.$text-sm;
+  font-weight: v.$font-weight-bold;
+
+  svg { width: 1.15rem; height: 1.15rem; }
+  &--primary { background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+  &--outline { border: 1px solid rgba(v.$white, 0.72); background: rgba(v.$ink-950, 0.32); color: v.$white; backdrop-filter: blur(8px); }
+}
+
+.core-features {
+  @include m.container;
+  padding-block: v.$space-5 v.$space-10;
+
+  &__grid { display: grid; gap: v.$space-3; }
+}
+
+.core-feature-card {
+  @include m.interactive-lift;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: v.$space-4;
+  min-height: 6.8rem;
+  padding: v.$space-4;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  background: v.$white;
+  box-shadow: v.$shadow-card;
+
+  h3 { font-size: v.$text-sm; letter-spacing: -0.025em; }
+  p { margin-top: v.$space-1; color: v.$color-text-muted; font-size: v.$text-xs; line-height: 1.5; }
+  &__chevron { width: 1rem; color: v.$slate-400; }
+}
+
+.features-icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+
+  svg { width: 1.55rem; height: 1.55rem; stroke-width: 2.35; }
+  &--green { background: rgba(v.$green-500, 0.13); color: v.$green-500; }
+  &--indigo { background: rgba(v.$indigo-500, 0.11); color: v.$indigo-500; }
+  &--violet { background: rgba(v.$violet-500, 0.11); color: v.$violet-500; }
+  &--orange { background: rgba(#ec8a27, 0.12); color: #e77818; }
+  &--blue { background: rgba(#3979dc, 0.11); color: #3979dc; }
+}
+
+.platform-story {
+  @include m.container;
+  display: grid;
+  gap: v.$space-8;
+  padding-block: v.$space-10 v.$space-12;
+
+  &__media {
+    position: relative;
+
+    img { width: 100%; min-height: 19rem; border-radius: v.$radius-lg; object-fit: cover; }
+
+    p {
+      position: absolute;
+      bottom: v.$space-5;
+      left: v.$space-5;
+      color: v.$white;
+      font-family: v.$font-script;
+      font-size: 1.55rem;
+      font-weight: v.$font-weight-semibold;
+      line-height: 0.98;
+      text-shadow: 0 2px 12px rgba(v.$ink-950, 0.8);
+      transform: rotate(-5deg);
+    }
+  }
+
+  &__content { align-self: center; }
+
+  h2 {
+    font-size: v.$text-2xl;
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+
+    em { color: v.$color-brand; font-style: normal; }
+  }
+
+  &__summary { margin-top: v.$space-4; color: v.$color-text-muted; font-size: v.$text-sm; line-height: 1.7; }
+
+  ul {
+    display: grid;
+    gap: v.$space-3;
+    margin: v.$space-6 0 0;
+    padding: 0;
+    list-style: none;
+
+    li { display: flex; align-items: center; gap: v.$space-2; color: v.$slate-700; font-size: v.$text-sm; font-weight: v.$font-weight-medium; }
+    svg { width: 1.1rem; height: 1.1rem; flex: none; color: v.$color-brand; stroke: v.$white; }
+  }
+}
+
+.feature-benefits {
+  padding-block: v.$space-10 v.$space-12;
+  background: v.$color-surface-soft;
+
+  &__inner { @include m.container; }
+  h2 { font-size: v.$text-xl; letter-spacing: -0.04em; }
+  &__grid { display: grid; gap: v.$space-3; margin-top: v.$space-6; }
+}
+
+.benefit-card {
+  @include m.interactive-lift;
+  display: flex;
+  align-items: center;
+  gap: v.$space-4;
+  padding: v.$space-4;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  background: v.$white;
+  box-shadow: v.$shadow-card;
+
+  h3 { font-size: v.$text-sm; }
+  p { margin-top: v.$space-1; color: v.$color-text-muted; font-size: v.$text-xs; line-height: 1.5; }
+}
+
+.features-cta {
+  position: relative;
+  display: grid;
+  min-height: 22rem;
+  align-items: end;
+  gap: v.$space-6;
+  padding: v.$space-10 v.$gutter;
+  background:
+    linear-gradient(180deg, rgba(v.$ink-950, 0.12), rgba(v.$ink-950, 0.92) 86%),
+    url('../../assets/images/features-cta.jpg') 64% center / cover no-repeat;
+  color: v.$white;
+
+  &__content { position: relative; z-index: 1; }
+  &__content > p { color: rgba(v.$white, 0.7); font-size: 0.65rem; font-weight: v.$font-weight-bold; letter-spacing: 0.2em; text-transform: uppercase; }
+  h2 { margin-top: v.$space-1; font-size: v.$text-xl; letter-spacing: -0.04em; line-height: 1.1; }
+  h2 em { color: v.$color-brand; font-style: normal; }
+  &__content > span { display: block; max-width: 38rem; margin-top: v.$space-2; color: v.$color-on-dark-muted; font-size: v.$text-xs; }
+  &__content > div { display: flex; flex-wrap: wrap; gap: v.$space-3; margin-top: v.$space-5; }
+
+  &__content a {
+    @include m.focus-ring;
+    display: inline-flex;
+    min-height: 2.8rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: v.$space-6;
+    border: 1px solid rgba(v.$white, 0.66);
+    border-radius: v.$radius-sm;
+    font-size: v.$text-xs;
+    font-weight: v.$font-weight-bold;
+
+    &:first-child { border-color: v.$color-brand; background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+  }
+
+  &__scribble { display: none; font-family: v.$font-script; font-size: 1.35rem; line-height: 1; text-align: center; transform: rotate(-6deg); }
+}
+
+@keyframes features-reveal {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: v.$bp-small) {
+  .core-features__grid, .feature-benefits__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .platform-story ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: v.$bp-medium) {
+  .features-hero {
+    min-height: 35rem;
+    align-items: center;
+    padding-block: v.$space-12;
+    background:
+      linear-gradient(90deg, rgba(v.$ink-950, 0.96), rgba(v.$ink-950, 0.69) 45%, rgba(v.$ink-950, 0.06) 78%),
+      url('../../assets/images/features-hero.jpg') center / cover no-repeat;
+
+    &__scribble { display: block; }
+  }
+
+  .platform-story {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: stretch;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-block: v.$space-12;
+
+    &__media img { height: 100%; min-height: 24rem; }
+  }
+
+  .features-cta {
+    grid-template-columns: 1fr auto;
+    min-height: 13rem;
+    align-items: center;
+    padding: v.$space-8 max(v.$gutter, calc((100% - #{v.$content-max}) / 2 + v.$gutter));
+    background:
+      linear-gradient(90deg, rgba(v.$ink-950, 0.9), rgba(v.$ink-950, 0.12) 58%, rgba(v.$ink-950, 0.7)),
+      url('../../assets/images/features-cta.jpg') center / cover no-repeat;
+
+    &__scribble { display: block; justify-self: end; }
+  }
+}
+
+@media (min-width: v.$bp-large) {
+  .features-hero { padding-inline: max(v.$gutter, calc((100% - #{v.$content-max}) / 2 + v.$gutter)); }
+  .core-features__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .core-feature-card { grid-template-columns: auto 1fr; min-height: 8.2rem; padding: v.$space-5; }
+  .core-feature-card__chevron { display: none; }
+  .feature-benefits__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .benefit-card { align-items: flex-start; }
+}

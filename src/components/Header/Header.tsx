@@ -7,7 +7,7 @@ import './Header.scss';
 const links = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Features', to: '/#features' },
+  { label: 'Features', to: '/features' },
   { label: 'For Churches', to: '/#get-started' },
   { label: 'Contact', to: '/#get-started' },
 ];
