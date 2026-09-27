@@ -9,7 +9,7 @@ const links = [
   { label: 'About', to: '/about' },
   { label: 'Features', to: '/features' },
   { label: 'For Churches', to: '/#get-started' },
-  { label: 'Contact', to: '/#get-started' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export function Header() {

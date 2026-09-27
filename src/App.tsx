@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { AboutPage } from './pages/AboutPage/AboutPage';
+import { ContactPage } from './pages/ContactPage/ContactPage';
 import { FeaturesPage } from './pages/FeaturesPage/FeaturesPage';
 import { HomePage } from './pages/HomePage/HomePage';
 
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/features" element={<FeaturesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
