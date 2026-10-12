@@ -1,8 +1,8 @@
-@use '../../../styles/variables' as v;
-@use '../../../styles/mixins' as m;
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
 
 // Section 6: footer. Brand, link columns, contact, socials, copyright. Two link columns side by side on mobile.
-.churches-footer {
+.site-footer {
   padding-block: v.$space-8 v.$space-6;
   background: v.$ink-950;
   color: v.$color-on-dark-muted;
@@ -50,7 +50,7 @@
 }
 
 @media (min-width: v.$bp-large) {
-  .churches-footer {
+  .site-footer {
     &__inner { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; align-items: start; gap: v.$space-8; }
     // Socials and copyright share the bottom row
     &__brand, &__contact, &__socials, &__copyright { grid-column: auto; }

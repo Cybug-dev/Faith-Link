@@ -20,8 +20,8 @@
   position: relative;
   display: flex;
   min-height: 29rem;
-  align-items: flex-end;
-  padding: v.$space-16 v.$gutter v.$space-12;
+  align-items: center;
+  padding: v.$space-12 v.$gutter;
   background:
     linear-gradient(180deg, rgba(v.$ink-950, 0.12), rgba(v.$ink-950, 0.82) 90%),
     url('../../assets/images/about-mission.jpg') 68% center / cover no-repeat;

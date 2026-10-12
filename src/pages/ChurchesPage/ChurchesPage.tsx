@@ -1,5 +1,4 @@
 import { ChurchCta } from './sections/ChurchCta';
-import { ChurchFooter } from './sections/ChurchFooter';
 import { ChurchNeeds } from './sections/ChurchNeeds';
 import { ChurchSteps } from './sections/ChurchSteps';
 import { ChurchTypes } from './sections/ChurchTypes';
@@ -15,7 +14,6 @@ export function ChurchesPage() {
       <ChurchSteps />
       <ChurchTypes />
       <ChurchCta />
-      <ChurchFooter />
     </main>
   );
 }

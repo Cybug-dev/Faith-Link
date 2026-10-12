@@ -18,8 +18,8 @@
   position: relative;
   display: flex;
   min-height: 38rem;
-  align-items: flex-end;
-  padding: v.$space-12 v.$gutter v.$space-16;
+  align-items: center;
+  padding: v.$space-12 v.$gutter;
   background:
     linear-gradient(180deg, rgba(v.$ink-950, 0.04), rgba(v.$ink-950, 0.88) 88%),
     url('../../assets/images/features-hero.jpg') 66% center / cover no-repeat;

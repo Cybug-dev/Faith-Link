@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { AboutPage } from './pages/AboutPage/AboutPage';
 import { ChurchesPage } from './pages/ChurchesPage/ChurchesPage';
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
