@@ -1,0 +1,116 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+// Section 3: mobile = image on top + accordion rows. Desktop = content LEFT, image RIGHT, steps in a row.
+.churches-steps {
+  padding-block: v.$space-10;
+  background: v.$color-surface-soft;
+
+  &__inner { @include m.container; display: grid; gap: v.$space-6; }
+
+  &__media {
+    overflow: hidden;
+    border-radius: v.$radius-lg;
+    background: v.$ink-800; // fallback if the image fails to load
+
+    img { width: 100%; height: 100%; min-height: 15rem; object-fit: cover; }
+  }
+
+  h2 { font-size: v.$text-2xl; letter-spacing: -0.04em; line-height: 1.1; }
+  &__summary { margin-top: v.$space-3; color: v.$color-text-muted; font-size: v.$text-sm; line-height: 1.65; }
+
+  &__list { margin: v.$space-6 0 0; padding: 0; list-style: none; border-top: 1px solid v.$color-border; }
+  &__item { position: relative; border-bottom: 1px solid v.$color-border; }
+  &__item h3 { font-size: v.$text-sm; }
+
+  // Accordion header (a <button> on mobile)
+  &__head {
+    @include m.button-reset;
+    @include m.focus-ring;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: v.$space-3;
+    padding-block: v.$space-4;
+    text-align: left;
+  }
+
+  &__badge {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    background: v.$color-brand;
+    color: v.$ink-950;
+    font-size: v.$text-sm;
+    font-weight: v.$font-weight-bold;
+  }
+
+  &__title { flex: 1; font-size: v.$text-sm; font-weight: v.$font-weight-semibold; line-height: 1.3; }
+
+  &__chevron {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: v.$slate-600;
+    transition: transform v.$duration-base v.$ease-standard;
+  }
+  &__item[data-open='true'] &__chevron { transform: rotate(90deg); }
+
+  // grid-template-rows 0fr -> 1fr gives a smooth height animation with no JS measuring
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows v.$duration-base v.$ease-standard;
+
+    > div { min-height: 0; overflow: hidden; }
+    p {
+      padding: 0 v.$space-2 v.$space-4 calc(2rem + v.$space-3); // align under the title
+      color: v.$color-text-muted;
+      font-size: v.$text-xs;
+      line-height: 1.6;
+    }
+  }
+  &__item[data-open='true'] &__panel { grid-template-rows: 1fr; }
+}
+
+@media (min-width: v.$bp-large) {
+  .churches-steps {
+    padding-block: v.$space-12;
+
+    &__inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: v.$space-10; }
+    // DOM order is image first (mobile); flip it so content sits on the left
+    &__media { order: 2; img { min-height: 22rem; } }
+    &__content { order: 1; container-type: inline-size; } // lets the list react to the column width, not the viewport
+
+    &__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: v.$space-6 v.$space-5; border-top: 0; }
+    &__item { border-bottom: 0; }
+    &__head { flex-direction: column; align-items: flex-start; gap: v.$space-3; padding-block: 0 v.$space-3; cursor: default; }
+    &__chevron { display: none; }
+    &__panel p { padding: 0; }
+
+    // Dashed connector links a badge to the next one in its row (2x2: 1->2 and 3->4 only)
+    &__item:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      top: 1rem;
+      left: 2.5rem;
+      right: -0.5rem;
+      border-top: 1px dashed v.$slate-400;
+    }
+  }
+}
+
+// Enough room for one row of four: connect every step except the last
+@container (min-width: 44rem) {
+  .churches-steps__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: v.$space-4; }
+  .churches-steps__item:nth-child(even):not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 2.5rem;
+    right: -0.5rem;
+    border-top: 1px dashed v.$slate-400;
+  }
+}

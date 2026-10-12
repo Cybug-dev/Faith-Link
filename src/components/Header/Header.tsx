@@ -8,7 +8,7 @@ const links = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Features', to: '/features' },
-  { label: 'For Churches', to: '/#get-started' },
+  { label: 'For Churches', to: '/churches' },
   { label: 'Contact', to: '/contact' },
 ];
 

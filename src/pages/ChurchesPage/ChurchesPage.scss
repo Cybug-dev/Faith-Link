@@ -1,0 +1,8 @@
+// Each section owns a partial; shared pieces (eyebrow, buttons, icon tones) live in _shared.
+@use 'sections/shared';
+@use 'sections/hero';
+@use 'sections/needs';
+@use 'sections/steps';
+@use 'sections/types';
+@use 'sections/cta';
+@use 'sections/footer';

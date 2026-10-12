@@ -6,10 +6,11 @@
   padding-inline: v.$gutter;
 }
 
+// No focus outline anywhere (product decision); kept as a mixin so existing includes still compile.
 @mixin focus-ring {
+  &:focus,
   &:focus-visible {
-    outline: 3px solid v.$color-focus;
-    outline-offset: 3px;
+    outline: none;
   }
 }
 

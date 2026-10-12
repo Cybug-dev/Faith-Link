@@ -1,0 +1,56 @@
+@use 'sass:color';
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.churches-page { background: v.$color-surface; }
+
+// Small uppercase label above section headings
+.churches-eyebrow {
+  margin-bottom: v.$space-2;
+  // Darker amber so the tiny label stays readable on white
+  color: color.adjust(v.$amber-500, $lightness: -20%);
+  font-size: v.$text-xs;
+  font-weight: v.$font-weight-bold;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  &--light { color: v.$color-brand; }
+}
+
+.churches-button {
+  @include m.focus-ring;
+  @include m.interactive-lift;
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  padding-inline: v.$space-5;
+  border: 1px solid transparent;
+  border-radius: v.$radius-sm;
+  font-size: v.$text-sm;
+  font-weight: v.$font-weight-bold;
+  text-align: center;
+
+  svg { width: 1.1rem; height: 1.1rem; flex: none; }
+
+  &--primary { background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+  &--primary:hover { background: v.$color-brand-hover; }
+  &--outline { border-color: rgba(v.$white, 0.5); background: rgba(v.$ink-950, 0.4); color: v.$white; backdrop-filter: blur(8px); }
+}
+
+// Round icon badges: tinted background + matching icon color from existing tokens
+.churches-icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+
+  svg { width: 1.4rem; height: 1.4rem; }
+  &--amber { background: rgba(v.$amber-500, 0.22); color: v.$ink-900; }
+  &--green { background: rgba(v.$green-500, 0.2); color: v.$green-500; }
+  &--violet { background: rgba(v.$violet-500, 0.16); color: v.$violet-500; }
+  &--indigo { background: rgba(v.$indigo-500, 0.14); color: v.$indigo-500; }
+}

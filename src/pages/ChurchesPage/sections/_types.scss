@@ -1,0 +1,76 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+// Section 4: content on top + scroll-snap carousel on mobile; content left + 4 cards right on desktop
+.churches-types {
+  padding-block: v.$space-10;
+
+  &__inner { @include m.container; display: grid; gap: v.$space-6; }
+
+  h2 {
+    font-size: v.$text-2xl;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+
+    em { display: block; color: v.$color-brand; font-style: normal; }
+  }
+
+  &__summary { margin: v.$space-3 0 v.$space-5; color: v.$color-text-muted; font-size: v.$text-sm; line-height: 1.65; }
+
+  // Swipeable track. Native scroll-snap does the work.
+  &__track {
+    display: flex;
+    gap: v.$space-3;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+}
+
+.churches-type-card {
+  position: relative;
+  flex: 0 0 78%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: v.$radius-md;
+  background: v.$ink-800; // fallback if the image fails to load
+  color: v.$white;
+  scroll-snap-align: start;
+
+  img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  // Gradient keeps the caption readable on any photo
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(v.$ink-950, 0.92));
+  }
+
+  &__body { position: absolute; inset: auto 0 0; z-index: 1; padding: v.$space-4; }
+  &__icon { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; margin-bottom: v.$space-2; border-radius: 50%; background: v.$color-brand; color: v.$ink-950; svg { width: 0.95rem; height: 0.95rem; } }
+  h3 { font-size: v.$text-sm; letter-spacing: -0.02em; line-height: 1.25; }
+  p { margin-top: v.$space-1; color: v.$color-on-dark-muted; font-size: v.$text-xs; line-height: 1.45; }
+}
+
+@media (min-width: v.$bp-medium) {
+  .churches-type-card { flex-basis: calc(50% - #{v.$space-3} / 2); }
+}
+
+@media (min-width: v.$bp-large) {
+  .churches-types {
+    padding-block: v.$space-12;
+
+    &__inner { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); align-items: center; gap: v.$space-10; }
+    &__track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+  }
+
+  .churches-type-card { aspect-ratio: 3 / 4; }
+}

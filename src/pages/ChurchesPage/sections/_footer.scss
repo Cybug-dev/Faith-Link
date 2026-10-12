@@ -1,0 +1,60 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+// Section 6: footer. Brand, link columns, contact, socials, copyright. Two link columns side by side on mobile.
+.churches-footer {
+  padding-block: v.$space-8 v.$space-6;
+  background: v.$ink-950;
+  color: v.$color-on-dark-muted;
+  font-size: v.$text-xs;
+
+  &__inner { @include m.container; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: v.$space-6 v.$space-5; }
+  &__brand, &__contact, &__socials, &__copyright { grid-column: 1 / -1; }
+
+  &__logo {
+    @include m.focus-ring;
+    display: inline-flex;
+    align-items: center;
+    gap: v.$space-2;
+    color: v.$white;
+    font-size: v.$text-lg;
+    font-weight: v.$font-weight-bold;
+
+    svg { width: 1.1rem; height: 1.1rem; }
+  }
+  &__brand p { max-width: 16rem; margin-top: v.$space-2; line-height: 1.55; }
+
+  &__column h2 { margin-bottom: v.$space-3; color: v.$white; font-size: v.$text-xs; font-weight: v.$font-weight-bold; }
+  &__column ul { display: grid; gap: v.$space-2; margin: 0; padding: 0; list-style: none; }
+  &__column a { @include m.focus-ring; transition: color v.$duration-fast ease; &:hover { color: v.$color-brand; } }
+  &__contact li { display: flex; align-items: center; gap: v.$space-2; }
+  &__contact svg { width: 0.95rem; height: 0.95rem; flex: none; color: v.$color-brand; }
+
+  &__socials { display: flex; gap: v.$space-3; margin: 0; padding: 0; list-style: none; }
+  &__socials a {
+    @include m.focus-ring;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid rgba(v.$white, 0.25);
+    border-radius: 50%;
+    color: v.$white;
+    transition: background-color v.$duration-fast ease, color v.$duration-fast ease;
+
+    &:hover { background: v.$color-brand; color: v.$ink-950; }
+    svg { width: 1rem; height: 1rem; }
+  }
+
+  &__copyright { color: v.$slate-400; }
+}
+
+@media (min-width: v.$bp-large) {
+  .churches-footer {
+    &__inner { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; align-items: start; gap: v.$space-8; }
+    // Socials and copyright share the bottom row
+    &__brand, &__contact, &__socials, &__copyright { grid-column: auto; }
+    &__socials { grid-column: 4; grid-row: 2; justify-self: end; }
+    &__copyright { grid-column: 1 / 4; grid-row: 2; align-self: center; }
+  }
+}

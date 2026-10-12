@@ -1,0 +1,42 @@
+@use '../../../styles/variables' as v;
+
+// Section 5: CTA banner over a sunset photo
+.churches-cta {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 22rem;
+  align-items: end;
+  padding: v.$space-10 v.$gutter;
+  background: v.$ink-900; // fallback if the image fails to load
+  color: v.$white;
+
+  &__image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(v.$ink-950, 0.2), rgba(v.$ink-950, 0.9) 85%);
+  }
+
+  &__content { max-width: 36rem; }
+  h2 { font-size: v.$text-xl; letter-spacing: -0.035em; line-height: 1.15; }
+  &__summary { margin: v.$space-3 0 v.$space-5; color: v.$color-on-dark-muted; font-size: v.$text-xs; line-height: 1.6; }
+
+  // Handwritten tagline: desktop only, as in the mobile screenshot
+  &__scribble { display: none; font-family: v.$font-script; font-size: 1.6rem; line-height: 1.05; text-align: center; transform: rotate(-6deg); }
+}
+
+@media (min-width: v.$bp-medium) {
+  .churches-cta {
+    min-height: 15rem;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-inline: max(v.$gutter, calc((100% - #{v.$content-max}) / 2 + v.$gutter));
+
+    &::after { background: linear-gradient(90deg, rgba(v.$ink-950, 0.92), rgba(v.$ink-950, 0.3) 60%, rgba(v.$ink-950, 0.6)); }
+    &__scribble { display: block; }
+  }
+}

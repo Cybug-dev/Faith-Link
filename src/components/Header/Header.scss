@@ -1,5 +1,5 @@
-@use '../../styles/variables' as v;
-@use '../../styles/mixins' as m;
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
 
 .site-header {
   position: fixed;
@@ -81,7 +81,9 @@
   border-radius: v.$radius-sm;
   background: rgba(v.$white, 0.08);
 
-  svg { width: 1.35rem; }
+  svg {
+    width: 1.35rem;
+  }
 }
 
 .site-nav {
@@ -99,20 +101,32 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(-0.75rem);
-  transition: opacity v.$duration-base v.$ease-standard, transform v.$duration-base v.$ease-standard, visibility v.$duration-base;
+  transition:
+    opacity v.$duration-base v.$ease-standard,
+    transform v.$duration-base v.$ease-standard,
+    visibility v.$duration-base;
 
-  &--open { opacity: 1; visibility: visible; transform: translateY(0); }
-  &__links, &__actions { display: grid; gap: v.$space-2; }
+  &--open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  &__links,
+  &__actions {
+    display: grid;
+    gap: v.$space-2;
+  }
 
   &__link {
     @include m.focus-ring;
-    padding: v.$space-3;
-    border-radius: v.$radius-sm;
-    color: rgba(v.$white, 0.78);
     font-size: v.$text-sm;
     font-weight: v.$font-weight-medium;
 
-    &--active, &:hover { color: v.$white; background: rgba(v.$white, 0.07); }
+    &--active,
+    &:hover {
+      color: v.$white;
+      background: rgba(v.$white, 0.07);
+    }
   }
 }
 
@@ -128,12 +142,21 @@
   font-weight: v.$font-weight-semibold;
   transition: background-color v.$duration-fast ease;
 
-  &--ghost { border: 1px solid rgba(v.$white, 0.32); background: rgba(v.$white, 0.06); }
-  &--primary { background: v.$color-brand; color: v.$ink-950; box-shadow: v.$shadow-button; }
+  &--ghost {
+    border: 1px solid rgba(v.$white, 0.32);
+    background: rgba(v.$white, 0.06);
+  }
+  &--primary {
+    background: v.$color-brand;
+    color: v.$ink-950;
+    box-shadow: v.$shadow-button;
+  }
 }
 
 @media (min-width: v.$bp-large) {
-  .menu-toggle { display: none; }
+  .menu-toggle {
+    display: none;
+  }
 
   .site-nav {
     position: static;
@@ -150,9 +173,17 @@
     visibility: visible;
     transform: none;
 
-    &__links, &__actions { display: flex; align-items: center; }
-    &__links { gap: clamp(0.2rem, 1vw, 1rem); }
-    &__actions { gap: v.$space-3; }
+    &__links,
+    &__actions {
+      display: flex;
+      align-items: center;
+    }
+    &__links {
+      gap: clamp(0.2rem, 1vw, 1rem);
+    }
+    &__actions {
+      gap: v.$space-3;
+    }
 
     &__link {
       position: relative;
@@ -166,15 +197,21 @@
         left: 0.75rem;
         height: 2px;
         background: v.$color-brand;
-        content: '';
+        content: "";
         opacity: 0;
         transform: scaleX(0.4);
         transition: all v.$duration-base v.$ease-standard;
       }
 
-      &--active::after, &:hover::after { opacity: 1; transform: scaleX(1); }
+      &--active::after,
+      &:hover::after {
+        opacity: 1;
+        transform: scaleX(1);
+      }
     }
   }
 
-  .header-button { min-height: 2.7rem; }
+  .header-button {
+    min-height: 2.7rem;
+  }
 }

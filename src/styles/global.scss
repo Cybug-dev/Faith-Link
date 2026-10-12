@@ -24,9 +24,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-button,
-a {
+// No tap highlight (mobile) and no focus outline (anywhere)
+* {
   -webkit-tap-highlight-color: transparent;
+}
+
+:focus,
+:focus-visible {
+  outline: none;
+}
+
+a,
+button {
+  -webkit-touch-callout: none;
 }
 
 button,
