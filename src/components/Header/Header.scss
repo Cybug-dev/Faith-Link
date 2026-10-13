@@ -80,53 +80,192 @@
   border: 1px solid rgba(v.$white, 0.2);
   border-radius: v.$radius-sm;
   background: rgba(v.$white, 0.08);
+  transition:
+    background-color v.$duration-fast ease,
+    border-color v.$duration-fast ease,
+    color v.$duration-fast ease;
 
   svg {
     width: 1.35rem;
+    animation: menu-toggle-swap v.$duration-base v.$ease-standard;
+  }
+
+  &:hover { background: rgba(v.$white, 0.14); }
+  &:focus-visible { border-color: v.$color-brand; box-shadow: 0 0 0 3px rgba(v.$amber-500, 0.3); }
+
+  &[aria-expanded="true"] {
+    border-color: v.$color-brand;
+    background: v.$color-brand;
+    color: v.$ink-950;
+  }
+}
+
+.site-nav-backdrop {
+  position: fixed;
+  z-index: 49;
+  inset: 0;
+  background: rgba(v.$ink-950, 0.45);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity v.$duration-base ease,
+    visibility 0s linear v.$duration-base;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
   }
 }
 
 .site-nav {
   position: absolute;
   top: calc(100% + v.$space-3);
-  right: v.$gutter;
-  left: v.$gutter;
+  right: v.$space-2;
+  left: v.$space-2;
   display: grid;
-  gap: v.$space-6;
-  padding: v.$space-6;
-  border: 1px solid rgba(v.$white, 0.12);
-  border-radius: v.$radius-md;
-  background: rgba(v.$ink-950, 0.98);
-  box-shadow: 0 1rem 3rem rgba(v.$ink-950, 0.36);
+  max-height: calc(100dvh - #{v.$header-height} - #{v.$space-8});
+  gap: v.$space-4;
+  padding: v.$space-3;
+  overflow-y: auto;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  background: v.$white;
+  color: v.$color-text;
+  box-shadow: v.$shadow-soft, 0 0.5rem 1.5rem rgba(v.$ink-950, 0.12);
   opacity: 0;
+  overscroll-behavior: contain;
+  transform: translateY(-0.6rem) scale(0.98);
+  transform-origin: top center;
   visibility: hidden;
-  transform: translateY(-0.75rem);
   transition:
-    opacity v.$duration-base v.$ease-standard,
+    opacity v.$duration-fast ease,
     transform v.$duration-base v.$ease-standard,
-    visibility v.$duration-base;
+    visibility 0s linear v.$duration-base;
 
   &--open {
     opacity: 1;
+    transform: none;
     visibility: visible;
-    transform: translateY(0);
+    transition-delay: 0s;
   }
+
+  &__eyebrow {
+    margin: v.$space-2 v.$space-3 0;
+    color: #a96c26;
+    font-size: v.$text-xs;
+    font-weight: v.$font-weight-bold;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
   &__links,
   &__actions {
     display: grid;
-    gap: v.$space-2;
+    gap: v.$space-1;
   }
 
   &__link {
     @include m.focus-ring;
+    display: flex;
+    align-items: center;
+    gap: v.$space-3;
+    min-height: 3.6rem;
+    padding: v.$space-2 v.$space-3;
+    border-radius: v.$radius-md;
     font-size: v.$text-sm;
     font-weight: v.$font-weight-medium;
+    transition: background-color v.$duration-fast ease;
+
+    &:hover,
+    &:focus-visible { background: v.$stone-100; }
 
     &--active,
-    &:hover {
-      color: v.$white;
-      background: rgba(v.$white, 0.07);
+    &--active:hover { background: rgba(v.$amber-500, 0.12); }
+    &--active .site-nav__label { font-weight: v.$font-weight-semibold; }
+    &--active .site-nav__chevron { color: #c9750f; }
+  }
+
+  &__icon {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+
+    svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.25; }
+    &--orange { background: rgba(#ec8a27, 0.13); color: #e77818; }
+    &--violet { background: rgba(v.$violet-500, 0.11); color: v.$violet-500; }
+    &--green { background: rgba(v.$green-500, 0.13); color: v.$green-500; }
+    &--amber { background: rgba(v.$amber-500, 0.16); color: #c9750f; }
+    &--slate { background: rgba(v.$slate-600, 0.12); color: v.$slate-600; }
+  }
+
+  &__text { display: grid; flex: 1; min-width: 0; }
+  &__description { margin-top: 0.1rem; color: v.$color-text-muted; font-size: v.$text-xs; font-weight: 400; }
+
+  &__chevron {
+    flex: none;
+    width: 1.05rem;
+    color: v.$slate-400;
+    transition: color v.$duration-fast ease, transform v.$duration-base v.$ease-standard;
+  }
+
+  &__link:hover &__chevron { color: v.$color-text; transform: translateX(2px); }
+
+  &__actions {
+    grid-template-columns: 1fr 1fr;
+    gap: v.$space-2;
+    padding-top: v.$space-3;
+    border-top: 1px solid v.$color-border;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .site-header--menu-open {
+    background: rgba(v.$ink-950, 0.985);
+  }
+
+  .site-nav__eyebrow,
+  .site-nav__link,
+  .site-nav__actions {
+    opacity: 0;
+    transform: translateY(0.4rem);
+    transition:
+      opacity v.$duration-base ease,
+      transform v.$duration-base v.$ease-standard,
+      background-color v.$duration-fast ease;
+  }
+
+  .site-nav--open {
+    .site-nav__eyebrow,
+    .site-nav__link,
+    .site-nav__actions {
+      opacity: 1;
+      transform: none;
     }
+
+    .site-nav__link { transition-delay: calc(40ms + var(--item-index, 0) * 35ms), calc(40ms + var(--item-index, 0) * 35ms), 0s; }
+    .site-nav__actions { transition-delay: 220ms; }
+  }
+
+  .site-nav .header-button--ghost {
+    border-color: rgba(v.$ink-900, 0.18);
+    background: v.$white;
+    color: v.$color-text;
+
+    &:hover { background: v.$stone-100; }
+  }
+}
+
+@media (min-width: v.$bp-medium) and (max-width: 63.99rem) {
+  .site-nav {
+    right: v.$gutter;
+    left: auto;
+    width: 24rem;
+    transform-origin: top right;
   }
 }
 
@@ -153,6 +292,11 @@
   }
 }
 
+@keyframes menu-toggle-swap {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.7); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (min-width: v.$bp-large) {
   .menu-toggle {
     display: none;
@@ -165,13 +309,22 @@
     align-items: center;
     justify-content: flex-end;
     gap: clamp(1rem, 3vw, 3rem);
+    max-height: none;
     padding: 0;
+    overflow: visible;
     border: 0;
+    border-radius: 0;
     background: none;
+    color: inherit;
     box-shadow: none;
     opacity: 1;
     visibility: visible;
     transform: none;
+
+    &__eyebrow,
+    &__icon,
+    &__description,
+    &__chevron { display: none; }
 
     &__links,
     &__actions {
@@ -183,12 +336,22 @@
     }
     &__actions {
       gap: v.$space-3;
+      padding-top: 0;
+      border-top: 0;
     }
 
     &__link {
       position: relative;
+      display: block;
+      min-height: 0;
       padding: 1.85rem 0.75rem 1.7rem;
+      border-radius: 0;
       background: none !important;
+
+      .site-nav__label { font-weight: inherit; }
+
+      &--active,
+      &:hover { color: v.$white; }
 
       &::after {
         position: absolute;
