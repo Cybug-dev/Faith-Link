@@ -8,6 +8,8 @@ import {
   UsersRound,
   type LucideIcon,
 } from 'lucide-react';
+import churchHeroImage from '../../assets/images/church-hero.jpg';
+import youngPeopleImage from '../../assets/images/young-people.jpeg';
 
 // All copy, image URLs and link targets for the For Churches page live here.
 // Link targets go through resolveRoute(): unknown routes fall back to "/".
@@ -23,12 +25,12 @@ export type IconTone = 'amber' | 'green' | 'violet' | 'indigo';
 // Unsplash photos, each URL checked to load (HTTP 200).
 export const images = {
   hero: {
-    url: 'https://images.unsplash.com/photo-1573497701240-345a300b8d36',
+    url: churchHeroImage, // local asset, imported so Vite bundles it
     alt: 'Church leaders in a warm discussion around a table',
     position: '72% center',
   },
   needs: {
-    url: 'https://images.unsplash.com/photo-1529390079861-591de354faf5',
+    url: youngPeopleImage, // local asset, imported so Vite bundles it
     alt: 'Young people studying together at a table',
     position: 'center',
   },

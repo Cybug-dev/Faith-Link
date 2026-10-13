@@ -12,12 +12,15 @@ const withWidth = (url: string, width: number) => `${url}?auto=format&fit=crop&q
 
 // One image for mobile and desktop: srcSet picks the size, object-fit/position handle the crop.
 export function Photo({ image, sizes, className, eager = false }: PhotoProps) {
+  // Only remote (Unsplash) images take width params; bundled local assets are used as-is.
+  const isRemote = image.url.startsWith('http');
+
   return (
     <img
       className={className}
-      src={withWidth(image.url, 800)}
-      srcSet={WIDTHS.map((width) => `${withWidth(image.url, width)} ${width}w`).join(', ')}
-      sizes={sizes}
+      src={isRemote ? withWidth(image.url, 800) : image.url}
+      srcSet={isRemote ? WIDTHS.map((width) => `${withWidth(image.url, width)} ${width}w`).join(', ') : undefined}
+      sizes={isRemote ? sizes : undefined}
       alt={image.alt}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
