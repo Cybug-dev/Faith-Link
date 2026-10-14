@@ -1,8 +1,11 @@
 import {
+  Check,
+  ChevronDown,
   ChevronRight,
   CircleAlert,
   CircleCheck,
   Handshake,
+  Lightbulb,
   Mail,
   MapPin,
   MessageCircle,
@@ -11,12 +14,13 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { sendContactMessage, type ContactMessage } from '../../services/contactService';
 import './ContactPage.scss';
 
 type ContactField = keyof ContactMessage;
 type FormErrors = Partial<Record<ContactField, string>>;
+type IconTone = 'green' | 'violet' | 'orange' | 'amber';
 
 const initialForm: ContactMessage = {
   fullName: '',
@@ -30,7 +34,7 @@ const helpOptions: Array<{
   description: string;
   subject: string;
   icon: LucideIcon;
-  tone: 'green' | 'violet' | 'orange';
+  tone: IconTone;
 }> = [
   {
     title: 'Partnership Inquiry',
@@ -55,6 +59,183 @@ const helpOptions: Array<{
   },
 ];
 
+const subjectOptions: Array<{ value: string; label: string; icon: LucideIcon; tone: IconTone }> = [
+  { value: 'general', label: 'General inquiry', icon: MessageSquare, tone: 'orange' },
+  { value: 'partnership', label: 'Partnership opportunity', icon: Handshake, tone: 'green' },
+  { value: 'support', label: 'Technical support', icon: CircleAlert, tone: 'violet' },
+  { value: 'feedback', label: 'Feedback or suggestion', icon: Lightbulb, tone: 'amber' },
+];
+
+type SubjectSelectProps = {
+  id: string;
+  labelId: string;
+  value: string;
+  placeholder: string;
+  invalid: boolean;
+  describedBy?: string;
+  onChange: (value: string) => void;
+  onBlur: () => void;
+};
+
+function SubjectSelect({ id, labelId, value, placeholder, invalid, describedBy, onChange, onBlur }: SubjectSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const typeaheadRef = useRef({ query: '', timer: 0 });
+  const listboxId = `${id}-listbox`;
+  const lastIndex = subjectOptions.length - 1;
+  const selectedIndex = subjectOptions.findIndex((option) => option.value === value);
+  const selected = subjectOptions[selectedIndex];
+  const activeOption = isOpen ? subjectOptions[activeIndex] : undefined;
+
+  useEffect(() => {
+    if (!isOpen || activeIndex < 0) return;
+    listRef.current?.children[activeIndex]?.scrollIntoView({ block: 'nearest' });
+  }, [isOpen, activeIndex]);
+
+  useEffect(() => () => window.clearTimeout(typeaheadRef.current.timer), []);
+
+  const open = (index = Math.max(selectedIndex, 0)) => {
+    setActiveIndex(index);
+    setIsOpen(true);
+    triggerRef.current?.focus();
+  };
+
+  const commit = (index: number) => {
+    const option = subjectOptions[index];
+    if (option) onChange(option.value);
+    setIsOpen(false);
+  };
+
+  const findTypeaheadMatch = (key: string) => {
+    const typeahead = typeaheadRef.current;
+    window.clearTimeout(typeahead.timer);
+    typeahead.query += key.toLowerCase();
+    typeahead.timer = window.setTimeout(() => { typeahead.query = ''; }, 500);
+
+    const current = isOpen ? activeIndex : selectedIndex;
+    const start = typeahead.query.length === 1 ? current + 1 : Math.max(current, 0);
+    for (let step = 0; step < subjectOptions.length; step += 1) {
+      const index = (start + step) % subjectOptions.length;
+      if (subjectOptions[index]?.label.toLowerCase().startsWith(typeahead.query)) return index;
+    }
+    return -1;
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const { key } = event;
+
+    if (key.length === 1 && key !== ' ' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      const match = findTypeaheadMatch(key);
+      const option = subjectOptions[match];
+      if (!option) return;
+      if (isOpen) setActiveIndex(match);
+      else onChange(option.value);
+      return;
+    }
+
+    if (!isOpen) {
+      if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(key)) {
+        event.preventDefault();
+        open(key === 'ArrowUp' && selectedIndex < 0 ? lastIndex : undefined);
+      }
+      return;
+    }
+
+    switch (key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setActiveIndex((index) => Math.min(index + 1, lastIndex));
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        if (event.altKey) commit(activeIndex);
+        else setActiveIndex((index) => Math.max(index - 1, 0));
+        break;
+      case 'Home':
+      case 'PageUp':
+        event.preventDefault();
+        setActiveIndex(0);
+        break;
+      case 'End':
+      case 'PageDown':
+        event.preventDefault();
+        setActiveIndex(lastIndex);
+        break;
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        commit(activeIndex);
+        break;
+      case 'Escape':
+        event.preventDefault();
+        setIsOpen(false);
+        break;
+    }
+  };
+
+  return (
+    <div className={`form-field__select${isOpen ? ' is-open' : ''}`}>
+      <button
+        ref={triggerRef}
+        type="button"
+        id={id}
+        className="form-field__select-trigger"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-controls={listboxId}
+        aria-labelledby={labelId}
+        aria-activedescendant={activeOption ? `${id}-option-${activeOption.value}` : undefined}
+        aria-invalid={invalid}
+        aria-describedby={describedBy}
+        onClick={() => (isOpen ? setIsOpen(false) : open())}
+        onKeyDown={handleKeyDown}
+        onKeyUp={(event) => { if (event.key === ' ') event.preventDefault(); }}
+        onBlur={() => { setIsOpen(false); onBlur(); }}
+      >
+        {selected ? (
+          <>
+            <span className={`contact-icon contact-icon--sm contact-icon--${selected.tone}`}><selected.icon aria-hidden="true" /></span>
+            <span className="form-field__select-value">{selected.label}</span>
+          </>
+        ) : (
+          <span className="form-field__select-value form-field__select-value--placeholder">{placeholder}</span>
+        )}
+        <ChevronDown className="form-field__select-icon" aria-hidden="true" />
+      </button>
+
+      <ul
+        ref={listRef}
+        id={listboxId}
+        className="form-field__select-menu"
+        role="listbox"
+        aria-labelledby={labelId}
+        tabIndex={-1}
+        onMouseDown={(event) => event.preventDefault()}
+      >
+        {subjectOptions.map(({ value: optionValue, label, icon: Icon, tone }, index) => (
+          <li
+            key={optionValue}
+            id={`${id}-option-${optionValue}`}
+            className={`form-field__select-option${index === activeIndex ? ' is-active' : ''}`}
+            role="option"
+            aria-selected={optionValue === value}
+            onMouseMove={() => { if (index !== activeIndex) setActiveIndex(index); }}
+            onClick={() => commit(index)}
+          >
+            <span className={`contact-icon contact-icon--sm contact-icon--${tone}`}><Icon aria-hidden="true" /></span>
+            <span>{label}</span>
+            {optionValue === value && <Check className="form-field__select-check" aria-hidden="true" />}
+          </li>
+        ))}
+      </ul>
+      <input type="hidden" name="subject" value={value} />
+    </div>
+  );
+}
+
 function validateForm(values: ContactMessage): FormErrors {
   const errors: FormErrors = {};
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -75,6 +256,14 @@ export function ContactPage() {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [isSubjectFlashing, setIsSubjectFlashing] = useState(false);
+  const subjectFlashTimerRef = useRef<number | undefined>(undefined);
+  const subjectFlashFrameRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => {
+    window.clearTimeout(subjectFlashTimerRef.current);
+    window.cancelAnimationFrame(subjectFlashFrameRef.current ?? 0);
+  }, []);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -94,8 +283,19 @@ export function ContactPage() {
     setErrors((current) => ({ ...current, [field]: fieldError }));
   };
 
+  const flashSubjectField = () => {
+    window.clearTimeout(subjectFlashTimerRef.current);
+    window.cancelAnimationFrame(subjectFlashFrameRef.current ?? 0);
+    setIsSubjectFlashing(false);
+    subjectFlashFrameRef.current = window.requestAnimationFrame(() => {
+      setIsSubjectFlashing(true);
+      subjectFlashTimerRef.current = window.setTimeout(() => setIsSubjectFlashing(false), 1800);
+    });
+  };
+
   const selectHelpSubject = (subject: string) => {
     updateField('subject', subject);
+    flashSubjectField();
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.setTimeout(() => formRef.current?.querySelector<HTMLTextAreaElement>('#message')?.focus(), 450);
   };
@@ -179,15 +379,18 @@ export function ContactPage() {
             {errors.email && <span className="form-field__error" id="email-error">{errors.email}</span>}
           </div>
 
-          <div className="form-field">
-            <label htmlFor="subject">Subject</label>
-            <select id="subject" name="subject" value={form.subject} onChange={(event) => updateField('subject', event.target.value)} onBlur={() => validateField('subject')} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? 'subject-error' : undefined}>
-              <option value="" disabled>How can we help?</option>
-              <option value="general">General inquiry</option>
-              <option value="partnership">Partnership opportunity</option>
-              <option value="support">Technical support</option>
-              <option value="feedback">Feedback or suggestion</option>
-            </select>
+          <div className={`form-field${isSubjectFlashing ? ' form-field--subject-flash' : ''}`}>
+            <label htmlFor="subject" id="subject-label">Subject</label>
+            <SubjectSelect
+              id="subject"
+              labelId="subject-label"
+              value={form.subject}
+              placeholder="How can we help?"
+              invalid={Boolean(errors.subject)}
+              describedBy={errors.subject ? 'subject-error' : undefined}
+              onChange={(value) => updateField('subject', value)}
+              onBlur={() => validateField('subject')}
+            />
             {errors.subject && <span className="form-field__error" id="subject-error">{errors.subject}</span>}
           </div>
 
