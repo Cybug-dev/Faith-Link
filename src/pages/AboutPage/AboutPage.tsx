@@ -8,7 +8,7 @@ import {
   UsersRound,
   type LucideIcon,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { SIGN_UP_URL } from '../../utils/navigation';
 import communityImage from '../../assets/images/about-community.jpg';
 import './AboutPage.scss';
 
@@ -113,7 +113,7 @@ export function AboutPage() {
             Whether you’re an individual, a youth group or a church — you can be part of a growing
             movement to raise a generation rooted in Christ.
           </p>
-          <Link to="/#get-started">Join Now</Link>
+          <a href={SIGN_UP_URL}>Join Now</a>
         </div>
       </section>
     </main>

@@ -1,4 +1,5 @@
 import './CallToAction.scss';
+import { SIGN_UP_URL } from '../../utils/navigation';
 
 export function CallToAction() {
   return (
@@ -7,7 +8,7 @@ export function CallToAction() {
         <div className="cta__content">
           <h2 id="cta-title">Ready to get started?</h2>
           <p>Join a community that’s passionate about God, people and purpose.</p>
-          <a className="cta__button" href="#create-account">Create an Account</a>
+          <a className="cta__button" href={SIGN_UP_URL}>Create an Account</a>
         </div>
         <blockquote className="cta__quote">
           “Let no one look down on you because you are young, but set an example for the believers…”

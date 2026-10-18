@@ -3,6 +3,7 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import brandMark from '../../assets/icons/faithlink-mark.svg';
 import './Header.scss';
+import { SIGN_IN_URL, SIGN_UP_URL } from '../../utils/navigation';
 
 const links: Array<{ label: string; to: string; description: string; icon: LucideIcon; tone: 'orange' | 'violet' | 'green' | 'amber' | 'slate' }> = [
   { label: 'Home', to: '/', description: 'Welcome to FaithLink', icon: Home, tone: 'orange' },
@@ -90,8 +91,8 @@ export function Header() {
               ))}
             </div>
             <div className="site-nav__actions">
-              <Link className="header-button header-button--ghost" to="/#signin" onClick={closeMenu}>Sign In</Link>
-              <Link className="header-button header-button--primary" to="/#get-started" onClick={closeMenu}>Get Started</Link>
+              <a className="header-button header-button--ghost" href={SIGN_IN_URL} onClick={closeMenu}>Sign In</a>
+              <a className="header-button header-button--primary" href={SIGN_UP_URL} onClick={closeMenu}>Get Started</a>
             </div>
           </nav>
 

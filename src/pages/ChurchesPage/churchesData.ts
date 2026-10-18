@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import churchHeroImage from '../../assets/images/church-hero.jpg';
 import youngPeopleImage from '../../assets/images/young-people.jpeg';
+import { SIGN_UP_URL } from '../../utils/navigation';
 
 // All copy, image URLs and link targets for the For Churches page live here.
 // Link targets go through resolveRoute(): unknown routes fall back to "/".
@@ -141,6 +142,6 @@ export const cta = {
   title: 'Join Churches Already Growing with FaithLink',
   summary:
     'Thousands of churches and youth groups are already using FaithLink to manage their communities, engage members and make a lasting impact.',
-  action: { label: 'Get Started for Your Church', to: '/#get-started' },
+  action: { label: 'Get Started for Your Church', to: SIGN_UP_URL },
   scribble: ['Stronger Churches.', 'Brighter Generations.'],
 };

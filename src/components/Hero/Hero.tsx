@@ -1,5 +1,6 @@
 import { CirclePlay } from 'lucide-react';
 import './Hero.scss';
+import { SIGN_UP_URL } from '../../utils/navigation';
 
 type HeroProps = { onWatchVideo: () => void };
 
@@ -14,7 +15,7 @@ export function Hero({ onWatchVideo }: HeroProps) {
           join activities, and grow spiritually — together.
         </p>
         <div className="hero__actions">
-          <a className="button button--primary" href="#get-started">Create an Account</a>
+          <a className="button button--primary" href={SIGN_UP_URL}>Create an Account</a>
           <button className="button button--outline" onClick={onWatchVideo} type="button">
             <CirclePlay aria-hidden="true" /> Watch Video
           </button>

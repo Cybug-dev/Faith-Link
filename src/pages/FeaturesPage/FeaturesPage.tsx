@@ -20,6 +20,7 @@ import communityImage from '../../assets/images/features-community.jpg';
 import heroImage from '../../assets/images/features-hero.jpg';
 import { VideoDialog } from '../../components/VideoDialog/VideoDialog';
 import './FeaturesPage.scss';
+import { SIGN_UP_URL } from '../../utils/navigation';
 
 type CardTone = 'green' | 'indigo' | 'violet' | 'orange' | 'blue';
 
@@ -121,7 +122,7 @@ export function FeaturesPage() {
             people build a stronger, more confident faith — anytime, anywhere.
           </p>
           <div className="features-hero__actions">
-            <Link className="features-button features-button--primary" to="/#get-started">Get Started Free</Link>
+            <a className="features-button features-button--primary" href={SIGN_UP_URL}>Get Started Free</a>
             <button className="features-button features-button--outline" onClick={() => setIsVideoOpen(true)} type="button">
               <CirclePlay aria-hidden="true" /> Watch Video
             </button>
@@ -186,7 +187,7 @@ export function FeaturesPage() {
           <h2 id="features-cta-title">Join a Generation <em>Growing in Faith</em></h2>
           <span>Create your account today and start learning, connecting and making a real impact.</span>
           <div>
-            <Link to="/#get-started">Get Started Free</Link>
+            <a href={SIGN_UP_URL}>Get Started Free</a>
             <Link to="/about">Learn More</Link>
           </div>
         </div>

@@ -8,3 +8,7 @@ export function resolveRoute(target: string): string {
   const path = target.split(/[?#]/)[0] ?? '';
   return KNOWN_ROUTES.includes(path) ? target : '/';
 }
+
+// External auth pages on the FaithLink web app.
+export const SIGN_IN_URL = 'https://faithlinkwebapp.vercel.app/sign-in';
+export const SIGN_UP_URL = 'https://faithlinkwebapp.vercel.app/create-account';
