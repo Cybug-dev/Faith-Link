@@ -1,7 +1,7 @@
 import { ChevronRight, Church, Home, Info, Mail, Menu, Sparkles, X, type LucideIcon } from 'lucide-react';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import brandMark from '../../assets/icons/faithlink-mark.svg';
+import brandMark from '../../assets/icons/favicon.svg';
 import './Header.scss';
 import { SIGN_IN_URL, SIGN_UP_URL } from '../../utils/navigation';
 

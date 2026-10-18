@@ -49,6 +49,7 @@ type(scope): short imperative summary (≤72 chars)
 ```
 Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, `perf`, `test`.
 Each bullet should be one precise fact. No filler like "updated files" or "minor changes".
+**Do not add `Co-Authored-By` or any AI attribution lines** to commits or PRs (owner's decision).
 
 ## 6. Keep WORKING.md current
 Update `WORKING.md` **while** you work, not only at the end:
